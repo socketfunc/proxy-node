@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package store;
+
+import "store/value.proto";
+
+option go_package = "github.com/socketfunc/proto/store";
+
+message Filter {
+    enum Comp {
+        EQ = 0;
+        GT = 1;
+        GTE = 2;
+        LT = 3;
+        LTE = 4;
+        NE = 5;
+        EXISTS = 6;
+    }
+
+    Comp comp = 1;
+    string name = 2;
+    Value value = 3;
+}

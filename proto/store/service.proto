@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+package store;
+
+option go_package = "github.com/socketfunc/proto/store";
+
+import "store/value.proto";
+import "store/filter.proto";
+import "store/update.proto";
+
+service StoreService {
+    rpc Get (GetRequest) returns (GetResponse) {}
+    rpc Put (PutRequest) returns (PutResponse) {}
+    rpc Modify (ModifyRequest) returns (ModifyResponse) {}
+    rpc Del (DelRequest) returns (DelResponse) {}
+    rpc DelAll (DelRequest) returns (DelResponse) {}
+    rpc Keys (KeysRequest) returns (KeysResponse) {}
+}
+
+message GetRequest {
+    string namespace = 1;
+    string key = 2;
+}
+
+message GetResponse {
+    Entity entity = 1;
+}
+
+message PutRequest {
+    string namespace = 1;
+    string key = 2;
+    Entity entity = 3;
+}
+
+message PutResponse {
+    bool success = 1;
+}
+
+message ModifyRequest {
+    string namespace = 1;
+    string key = 2;
+    repeated Filter filters = 3;
+    repeated Update Updates = 4;
+}
+
+message ModifyResponse {
+    bool success = 1;
+    Entity entity = 2;
+}
+
+message DelRequest {
+    string namespace = 1;
+    string key = 2;
+}
+
+message DelResponse {
+    bool success = 1;
+}
+
+message KeysRequest {
+    string namespace = 1;
+    string key = 2;
+}
+
+message KeysResponse {
+    repeated string keys = 1;
+}

@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package store;
+
+option go_package = "github.com/socketfunc/proto/store";
+
+message Value {
+    enum Type {
+        INT = 0;
+        UINT = 1;
+        FLOAT = 2;
+        String = 3;
+        BOOL = 4;
+    }
+
+    Type type = 1;
+    bytes data = 2;
+}
+
+message Entity {
+    map<string, Value> data = 1;
+}

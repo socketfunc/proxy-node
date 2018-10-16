@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package gateway;
+
+option go_package = "github.com/socketfunc/proto/gateway";
+
+import "packet/packet.proto";
+
+service GatewayService {
+    rpc Publish (PublishRequest) returns (PublishResponse) {}
+    rpc Subscribe (SubscribeRequest) returns (stream SubscribeSend) {}
+    rpc Unsubscribe (UnsubscribeRequest) returns (UnsubscribeResponse) {}
+    rpc Ping (stream PingRequest) returns (stream PingResponse) {}
+}
+
+message PublishRequest {
+    packet.Packet packet = 1;
+}
+
+message PublishResponse {
+    bool success = 1;
+}
+
+message SubscribeRequest {
+    string id = 1;
+    string topic = 2;
+}
+
+message SubscribeSend {
+    packet.Packet packet = 1;
+}
+
+message UnsubscribeRequest {
+    string id = 1;
+    string topic = 2;
+}
+
+message UnsubscribeResponse {
+    bool success = 1;
+}
+
+message PingRequest {}
+
+message PingResponse {}

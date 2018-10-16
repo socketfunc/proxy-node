@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package store;
+
+option go_package = "github.com/socketfunc/proto/store";
+
+import "store/value.proto";
+
+message Update {
+    enum Op {
+        INC = 0;
+        SET = 1;
+        UNSET = 2;
+    }
+
+    Op op = 1;
+    string name = 2;
+    Value value = 3;
+}

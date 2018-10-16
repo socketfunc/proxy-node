@@ -1,0 +1,11 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = git@github.com:socketfunc/proto.git
+	branch = master
+	commit = bb4ae38734426f2d34ce6b982e744ec9b4cbceef
+	parent = 0c8f250d015fba643595761b1ae0e62009c72da3
+	cmdver = 0.3.1
