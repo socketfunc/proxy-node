@@ -6,6 +6,6 @@
 [subrepo]
 	remote = git@github.com:socketfunc/proto.git
 	branch = master
-	commit = ebd5b17d0910f745d03f5ca68c1ab5a4debfa96c
-	parent = 33733be4aa17cd8f9e96255b3fb4f05f3842a00b
+	commit = 2298e882648fbc76ad66e3513c1950cd0a1e7663
+	parent = ff2edf68a9398ea8c0cd08c7b365cb712401c119
 	cmdver = 0.3.1

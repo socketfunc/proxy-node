@@ -4,9 +4,10 @@ package packet;
 
 option go_package = "github.com/socketfunc/proto/packet";
 
+// protocol
 message Packet {
-    string id = 1;
-    string topic = 2;
-    string event = 3;
+    string id     = 1;
+    string topic  = 2;
+    string event  = 3;
     bytes payload = 4;
 }
