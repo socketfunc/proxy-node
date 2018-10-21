@@ -3,3 +3,6 @@ docker-build:
 
 docker-push:
 	docker push yuichiko/proxy-node-arm:${TAG}
+
+update-proto:
+	git subrepo pull proto
