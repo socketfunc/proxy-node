@@ -10,6 +10,7 @@ service GatewayService {
     rpc Publish (PublishRequest) returns (PublishResponse) {}
     rpc Subscribe (SubscribeRequest) returns (stream SubscribeSend) {}
     rpc Unsubscribe (UnsubscribeRequest) returns (UnsubscribeResponse) {}
+    rpc Disconnect(DisconnectRequest) returns (DisconnectResponse) {}
     rpc Ping (stream PingRequest) returns (stream PingResponse) {}
 }
 
@@ -17,9 +18,7 @@ message PublishRequest {
     packet.Packet packet = 1;
 }
 
-message PublishResponse {
-    bool success = 1;
-}
+message PublishResponse {}
 
 message SubscribeRequest {
     string id = 1;
@@ -35,9 +34,13 @@ message UnsubscribeRequest {
     string topic = 2;
 }
 
-message UnsubscribeResponse {
-    bool success = 1;
+message UnsubscribeResponse {}
+
+message DisconnectRequest {
+    string id = 1;
 }
+
+message DisconnectResponse {}
 
 message PingRequest {}
 
