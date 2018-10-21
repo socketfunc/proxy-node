@@ -1,0 +1,23 @@
+#!/usr/bin/env node
+
+const cmd = require('commander')
+
+const pkg = require('../package')
+const server = require('../lib/server')
+
+cmd
+  .version(pkg.version)
+  .option('--port [port]', 'ProxyServer port')
+  .option('--gateway [gateway]', 'Gateway Service')
+  .parse(process.argv)
+
+const option = {
+  port: cmd.port,
+  gateway: cmd.gateway
+}
+
+server.start(option)
+
+process.on('SIGTERM', () => {
+  server.stop()
+})

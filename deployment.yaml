@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: proxy-node
+  labels:
+    run: proxy-node
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: proxy-node
+  template:
+    metadata:
+      labels:
+        app: proxy-node
+    spec:
+      containers:
+      - name: proxy-node
+        image: yuichiko/proxy-node-arm:0.1.0
+        ports:
+        - containerPort: 5000

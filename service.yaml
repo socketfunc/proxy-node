@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: proxy-node
+  labels:
+    run: proxy-node
+spec:
+  selector:
+    app: proxy-node
+  ports:
+  - protocol: TCP
+    port: 5000
+    name: ws
+    targetPort: 5000
+  type: NodePort

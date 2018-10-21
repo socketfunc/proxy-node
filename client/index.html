@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>proxy-node</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous">
+</head>
+<body class="container">
+
+    <form action="javascript:void(0)" class="send">
+        <div class="input-group">
+            <select class="custom-select col-sm-2" id="type">
+                <option value="publish">publish</option>
+                <option value="subscribe">subscribe</option>
+                <option value="unsubscribe">unsubscribe</option>
+            </select>
+            <input type="text" id="topic" class="form-control col-sm-2" placeholder="topic">
+            <input type="text" id="event" class="form-control col-sm-2" placeholder="event">
+            <input type="text" id="payload" class="form-control col-sm-6">
+            <div class="input-group-append">
+                <button type="submit" id="send" class="btn btn-outline-secondary">send</button>
+            </div>
+        </div>
+    </form>
+
+    <script type="application/javascript">
+      var UUID;
+      UUID=function(f){function a(){}a.generate=function(){var b=a._getRandomInt,c=a._hexAligner;return c(b(32),8)+"-"+c(b(16),4)+"-"+c(16384|b(12),4)+"-"+c(32768|b(14),4)+"-"+c(b(48),12)};a._getRandomInt=function(b){if(0>b||53<b)return NaN;var c=0|1073741824*Math.random();return 30<b?c+1073741824*(0|Math.random()*(1<<b-30)):c>>>30-b};a._hexAligner=function(b,c){for(var a=b.toString(16),d=c-a.length,e="0";0<d;d>>>=1,e+=e)d&1&&(a=e+a);return a};a.overwrittenUUID=f;"object"===typeof module&&"object"===typeof module.exports&&
+      (module.exports=a);return a}(UUID);
+    </script>
+    <script type="application/javascript">
+      var typeEl = document.getElementById('type');
+      var topicEl = document.getElementById('topic');
+      var eventEl = document.getElementById('event');
+      var payloadEl = document.getElementById('payload');
+
+      var uuid = UUID.generate();
+
+      var sock = new WebSocket('ws://k8s-master:30107');
+      sock.addEventListener('open', function (e) {
+        console.log('Socket Opened');
+      });
+      sock.addEventListener('message', function (e) {
+        console.log(e.data);
+        payloadEl.value = '';
+        payloadEl.focus();
+      });
+
+      window.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('send').addEventListener('click', function (e) {
+          var data = JSON.stringify({
+            type: typeEl.value,
+            packet: {
+              id: uuid,
+              topic: topicEl.value,
+              event: eventEl.value,
+              payload: payloadEl.value
+            }
+          })
+          sock.send(data);
+        });
+      });
+    </script>
+
+    <style type="text/css">
+        .send {
+            padding: 30px 0;
+        }
+    </style>
+</body>
+</html>
